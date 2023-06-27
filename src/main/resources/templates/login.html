@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="shortcut icon" href="favicon.ico"/>
+<link rel="bookmark" href="favicon.ico"/>
+<link th:href="@{/h-ui/css/H-ui.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/h-ui/css/H-ui.login.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/h-ui/lib/icheck/icheck.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/h-ui/lib/Hui-iconfont/1.0.1/iconfont.css}" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/default/easyui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/icon.css}">
+
+<script type="text/javascript" th:src="@{/easyui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/h-ui/js/H-ui.js}"></script>
+<script type="text/javascript" th:src="@{/h-ui/lib/icheck/jquery.icheck.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/easyui/jquery.easyui.min.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+
+    /*<![CDATA[*/
+//登录菜单
+    $(function(){
+        //点击图片切换验证码
+        //checkCode 在SystemController.java中
+        /*这里后面加上个时间串的原因是为了防止浏览器缓存验证码图片。
+        浏览器缓存是一种机制，可以让浏览器保存已经请求过的资源，以便下次访问时快速加载。
+        但是对于验证码图片，我们希望每次都能获取最新的图片，而不是使用缓存中的旧图片。
+        所以，我们在验证码图片的URL后面加上一个时间串，
+        这样就相当于每次都请求一个不同的URL，浏览器就不会使用缓存，而是重新向服务器请求新的验证码图片。
+        */
+        $("#vcodeImg").click(function(){
+            //this.src="@{/system/checkcode}&t="+new Date().getTime();
+            var uri = /*[[@{/system/checkCode}]]*/;
+            this.src = uri + '?t=' + new Date().getTime();
+            console.log(this.src);
+        });//通过jq来获取并修改图片src属性，图片不是本地的，是算法生成的
+
+        //登录
+        $("#submitBtn").click(function(){
+        	$.ajax({
+        		type: "post",
+        		url: /*[[@{/system/login}]]*/,
+        		data: $("#form").serialize(),
+        		dataType: "json", //返回数据类型
+        		success: function(data){
+        			if(data.success){
+                        window.location.href = /*[[@{/system/index}]]*/;
+                    }else{
+                        $.messager.alert("消息提醒", data.message, "warning");
+                        $("#vcodeImg").click();//切换验证码
+                        $("input[name='code']").val("");//清空验证码输入框
+                    }
+        		}
+
+        	});
+        });
+
+        //设置复选框
+        $(".skin-minimal input").iCheck({
+            radioClass: 'iradio-blue',
+            increaseArea: '25%'
+        });
+	})
+    /*]]>*/
+</script>
+<title>登录|学生宿舍管理系统</title>
+<meta name="keywords" content="学生成绩管理系统">
+</head>
+<body>
+
+<div class="header" style="padding: 0;">
+	<h2 style="color: white; width: 400px; height: 60px; line-height: 60px; margin: 0 0 0 30px; padding: 0;">学生宿舍管理系统</h2>
+</div>
+<div class="loginWraper">
+  <div id="loginform" class="loginBox">
+    <form id="form" class="form form-horizontal" method="post">
+      <div class="row cl">
+        <label class="form-label col-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-8">
+          <input id="username" name="username" type="text" placeholder="用户名" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-8">
+          <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <div class="formControls col-8 col-offset-3">
+          <input class="input-text size-L" name="code" type="text" placeholder="请输入验证码" style="width: 200px;">
+          <img title="点击图片切换验证码" id="vcodeImg" th:src="@{/system/checkCode}"></div>
+        <!--th:src="@{/system/checkCode} 是 thrmeleaf 的语法，可以生成要拼接的字符串-->
+      </div>
+
+      <div class="mt-20 skin-minimal" style="text-align: center;">
+		<div class="radio-box">
+			<input type="radio" id="radio-2" name="type" checked value="2" />
+			<label for="radio-1">学生</label>
+		</div>
+		<div class="radio-box">
+			<input type="radio" id="radio-3" name="type" value="3" />
+			<label for="radio-2">宿舍管理员</label>
+		</div>
+		<div class="radio-box">
+			<input type="radio" id="radio-1" name="type" value="1" />
+			<label for="radio-3">系统管理员</label>
+		</div>
+	</div>
+
+      <div class="row">
+        <div class="formControls col-8 col-offset-3">
+          <input id="submitBtn" type="button" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="footer">计科2001 </div>
+</body>
+</html>
