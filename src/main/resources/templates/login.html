@@ -26,6 +26,7 @@
 
     /*<![CDATA[*/
 //登录菜单
+    //$(document).ready(function(){})简写，定义该文件的准备方法
     $(function(){
         //点击图片切换验证
         //checkCode 在SystemController.java中
@@ -43,8 +44,9 @@
         });//通过jq来获取并修改图片src属性，图片不是本地的，是算法生成的
 
         //登录
+        //$(selector).action() #id .class
         $("#submitBtn").click(function(){
-        	$.ajax({
+                $.ajax({
         		type: "post",
         		url: /*[[@{/system/login}]]*/,
         		data: $("#form").serialize(),

@@ -2,7 +2,6 @@ package com.wdd.studentmanager.controller;
 
 import com.wdd.studentmanager.domain.Student;
 import com.wdd.studentmanager.service.ClazzService;
-import com.wdd.studentmanager.service.SelectedCourseService;
 import com.wdd.studentmanager.service.StudentService;
 import com.wdd.studentmanager.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private ClazzService clazzService;
-    @Autowired
-    private SelectedCourseService selectedCourseService;
 
     /**
      * 跳转学生列表页面
@@ -94,13 +91,13 @@ public class StudentController {
         try {
             List<Integer> ids = data.getIds();
             Iterator<Integer> iterator = ids.iterator();
-            while (iterator.hasNext()){  //判断是否存在课程关联学生
-                if(!selectedCourseService.isStudentId(iterator.next())){
-                    ajaxResult.setSuccess(false);
-                    ajaxResult.setMessage("无法删除,存在课程关联学生");
-                    return ajaxResult;
-                }
-            }
+//            while (iterator.hasNext()){  //判断是否存在课程关联学生
+//                if(!selectedCourseService.isStudentId(iterator.next())){
+//                    ajaxResult.setSuccess(false);
+//                    ajaxResult.setMessage("无法删除,存在课程关联学生");
+//                    return ajaxResult;
+//                }
+//            }
             File fileDir = UploadUtil.getImgDirFile();
             for(Integer id : ids){
                 Student byId = studentService.findById(id);
