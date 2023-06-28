@@ -1,11 +1,6 @@
 package com.wdd.studentmanager.domain;
 
-/**
- * @Classname Teacher
- * @Description None
- * @Date 2019/6/28 18:55
- * @Created by WDD
- */
+
 public class Teacher {
     private int id;
     private String sn;//学号
