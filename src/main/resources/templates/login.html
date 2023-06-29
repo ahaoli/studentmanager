@@ -36,6 +36,7 @@
         所以，我们在验证码图片的URL后面加上一个时间串，
         这样就相当于每次都请求一个不同的URL，浏览器就不会使用缓存，而是重新向服务器请求新的验证码图片。
         */
+        //验证码切换
         $("#vcodeImg").click(function(){
             //this.src="@{/system/checkcode}&t="+new Date().getTime();
             var uri = /*[[@{/system/checkCode}]]*/;
