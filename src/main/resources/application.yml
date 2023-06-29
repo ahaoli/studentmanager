@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/studentmanager?setUnicode=true&characterEncoding=utf8&useAffectedRows=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/studentmanager?setUnicode=true&characterEncoding=utf8&useAffectedRows=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: lyp82nlf
+    password: \
   servlet:
     multipart:
       max-file-size: 30Mb

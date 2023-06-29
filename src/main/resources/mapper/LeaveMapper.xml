@@ -14,18 +14,30 @@
         <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
         from s_leave
-        <where>
-            <if test="studentId!=null"> and student_id = #{studentId} </if>
-        </where>
+        where #{studentId} = 0 or student_id = #{studentId}
         limit #{startIndex},#{pagesize}
     </select>
 
+<!--    <select id="queryList" resultMap="LeaveInfo" >-->
+<!--        &lt;!&ndash; 根据条件查询 图书的所有信息 &ndash;&gt;-->
+<!--        SELECT *-->
+<!--        from s_leave-->
+<!--        <where>-->
+<!--            <if test="studentId!=null"> and student_id = #{studentId} </if>-->
+<!--        </where>-->
+<!--        limit #{startIndex},#{pagesize}-->
+<!--    </select>-->
+
     <select id="queryCount" resultType="int" >
         select count(*) from s_leave
-        <where>
-            <if test="studentId!=null"> and student_id = #{studentId} </if>
-        </where>
+        where #{studentId} = 0 or student_id = #{studentId}
     </select>
+<!--    <select id="queryCount" resultType="int" >-->
+<!--        select count(*) from s_leave-->
+<!--        <where>-->
+<!--            <if test="studentId!=null"> and student_id = #{studentId} </if>-->
+<!--        </where>-->
+<!--    </select>-->
 
     <insert id="addLeave" parameterType="Leave">
         insert into s_leave(student_id,info)

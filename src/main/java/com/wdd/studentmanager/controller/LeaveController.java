@@ -1,8 +1,10 @@
 package com.wdd.studentmanager.controller;
 
 import com.wdd.studentmanager.domain.Leave;
+import com.wdd.studentmanager.domain.Student;
 import com.wdd.studentmanager.service.LeaveService;
 import com.wdd.studentmanager.util.AjaxResult;
+import com.wdd.studentmanager.util.Const;
 import com.wdd.studentmanager.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,11 +44,22 @@ public class LeaveController {
     public Object getClazzList(@RequestParam(value = "page", defaultValue = "1")Integer page,
                                @RequestParam(value = "rows", defaultValue = "100")Integer rows,
                                @RequestParam(value = "studentid", defaultValue = "0")String studentid,
-                               String from){
+                               String from, HttpSession session){
         Map<String,Object> paramMap = new HashMap();
         paramMap.put("pageno",page);
         paramMap.put("pagesize",rows);
-        if(!studentid.equals("0"))  paramMap.put("studentId",studentid);
+
+        Student student = (Student) session.getAttribute(Const.STUDENT);
+        if(!StringUtils.isEmpty(student)){
+            //是学生权限，只能查询自己的信息
+            System.out.println(student.getId());
+            paramMap.put("studentId",student.getId());
+        }
+        else{
+            System.out.println(0);
+            paramMap.put("studentId",0);
+        }
+
         PageBean<Leave> pageBean = leaveService.queryPage(paramMap);
         if(!StringUtils.isEmpty(from) && from.equals("combox")){
             return pageBean.getDatas();

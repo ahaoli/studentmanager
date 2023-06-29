@@ -15,7 +15,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-
+/**
+ * @Classname StudentController
+ * @Description None
+ * @Date 2019/6/25 20:00
+ * @Created by WDD
+ */
 @Controller
 @RequestMapping("/student")
 public class StudentController {
@@ -24,6 +29,7 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private ClazzService clazzService;
+
 
     /**
      * 跳转学生列表页面
@@ -65,6 +71,13 @@ public class StudentController {
 
         PageBean<Student> pageBean = studentService.queryPage(paramMap);
         if(!StringUtils.isEmpty(from) && from.equals("combox")){
+            /**
+             * 查全表
+             */
+            paramMap.clear();
+            paramMap.put("pageno",1);
+            paramMap.put("pagesize",1000000000);
+            pageBean = studentService.queryPage(paramMap);
             return pageBean.getDatas();
         }else{
             Map<String,Object> result = new HashMap();
@@ -86,13 +99,7 @@ public class StudentController {
         try {
             List<Integer> ids = data.getIds();
             Iterator<Integer> iterator = ids.iterator();
-//            while (iterator.hasNext()){  //判断是否存在课程关联学生
-//                if(!selectedCourseService.isStudentId(iterator.next())){
-//                    ajaxResult.setSuccess(false);
-//                    ajaxResult.setMessage("无法删除,存在课程关联学生");
-//                    return ajaxResult;
-//                }
-//            }
+
             File fileDir = UploadUtil.getImgDirFile();
             for(Integer id : ids){
                 Student byId = studentService.findById(id);
