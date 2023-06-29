@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>宿舍列表</title>
+    <title>班级列表</title>
     <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/default/easyui.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/icon.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/easyui/css/demo.css}">
@@ -14,7 +14,7 @@
         $(function() {
             //datagrid初始化
             $('#dataList').datagrid({
-                title:'宿舍列表',
+                title:'班级列表',
                 iconCls:'icon-more',//图标
                 border: true,
                 collapsible: false,//是否可折叠的
@@ -33,7 +33,7 @@
                     {field:'chk',checkbox: true,width:50},
                     {field:'id',title:'ID',width:50, sortable: true},
                     {field:'name',title:'宿舍楼',width:200},
-                    {field:'info',title:'所在专业',width:100,
+                    {field:'info',title:'班级',width:100,
                     },
                 ]
                 ],
@@ -89,7 +89,7 @@
 
             //设置添加班级窗口
             $("#addDialog").dialog({
-                title: "添加宿舍楼",
+                title: "添加相关信息",
                 width: 500,
                 height: 400,
                 iconCls: "icon-add",
@@ -170,7 +170,7 @@
 
             //设置编辑班级窗口
             $("#editDialog").dialog({
-                title: "编辑班级",
+                title: "编辑相关信息",
                 width: 500,
                 height: 400,
                 iconCls: "icon-add",
@@ -265,7 +265,7 @@
                 <td><input id="add_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="name"  data-options="required:true, missingMessage:'不能为空'" /></td>
             </tr>
             <tr>
-                <td>所在专业:</td>
+                <td>班级:</td>
                 <td>
                     <textarea id="info" name="info" style="width: 200px; height: 60px;" class="" ></textarea>
                 </td>
@@ -284,7 +284,7 @@
                 <td><input id="edit_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="name"  data-options="required:true, missingMessage:'不能为空'" /></td>
             </tr>
             <tr>
-                <td>所在专业:</td>
+                <td>班级:</td>
                 <td>
                     <textarea id="edit_info" name="info" style="width: 200px; height: 60px;" class="" ></textarea>
                 </td>
