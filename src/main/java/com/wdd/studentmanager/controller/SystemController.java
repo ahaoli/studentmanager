@@ -61,22 +61,23 @@ public class SystemController {
             ajaxResult.setMessage("请填写密码");
             return ajaxResult;
         }
-        if(StringUtils.isEmpty(code)){
-            ajaxResult.setSuccess(false);
-            ajaxResult.setMessage("请填验证码");
-            return ajaxResult;
-        }
-        if(StringUtils.isEmpty(session.getAttribute(Const.CODE))){
-            ajaxResult.setSuccess(false);
-            ajaxResult.setMessage("会话时间过长，请刷新");
-            return ajaxResult;
-        }else{
-            if(!code.equalsIgnoreCase((String) session.getAttribute(Const.CODE))){
-                ajaxResult.setSuccess(false);
-                ajaxResult.setMessage("验证码错误");
-                return ajaxResult;
-            }
-        }
+//        if(StringUtils.isEmpty(code)){
+//            ajaxResult.setSuccess(false);
+//            ajaxResult.setMessage("请填验证码");
+//            return ajaxResult;
+//        }
+//        if(StringUtils.isEmpty(session.getAttribute(Const.CODE))){
+//            ajaxResult.setSuccess(false);
+//            ajaxResult.setMessage("会话时间过长，请刷新");
+//            return ajaxResult;
+//        }
+//        else{
+//            if(!code.equalsIgnoreCase((String) session.getAttribute(Const.CODE))){
+//                ajaxResult.setSuccess(false);
+//                ajaxResult.setMessage("验证码错误");
+//                return ajaxResult;
+//            }
+//        }
         //数据库校验
         switch (type){
             case "1":{ //管理员
@@ -114,12 +115,14 @@ public class SystemController {
                 teacher.setPassword(password);
                 teacher.setUsername(username);
                 Teacher tr = teacherService.findByTeacher(teacher);
+
                 if(StringUtils.isEmpty(tr)){
                     ajaxResult.setSuccess(false);
                     ajaxResult.setMessage("用户名或密码错误");
                     return ajaxResult;
                 }
                 ajaxResult.setSuccess(true);
+                System.out.println(tr.getMobile());
                 session.setAttribute(Const.TEACHER,tr);
                 session.setAttribute(Const.USERTYPE,"3");
                 break;

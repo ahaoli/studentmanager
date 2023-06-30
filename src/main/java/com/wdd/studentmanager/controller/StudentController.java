@@ -1,6 +1,7 @@
 package com.wdd.studentmanager.controller;
 
 import com.wdd.studentmanager.domain.Student;
+import com.wdd.studentmanager.domain.Teacher;
 import com.wdd.studentmanager.service.ClazzService;
 import com.wdd.studentmanager.service.StudentService;
 import com.wdd.studentmanager.util.*;
@@ -55,13 +56,17 @@ public class StudentController {
     public Object getStudentList(@RequestParam(value = "page", defaultValue = "1")Integer page,
                                  @RequestParam(value = "rows", defaultValue = "100")Integer rows,
                                  String studentName,
-                                 @RequestParam(value = "clazzid", defaultValue = "0")String clazzid, String from, HttpSession session){
+                                 @RequestParam(value = "clazzid", defaultValue = "0")String clxzzid, String from, HttpSession session){
+        Teacher ccc = (Teacher) session.getAttribute(Const.TEACHER);
+        int clazzid = ((Teacher)(session.getAttribute(Const.TEACHER))).getClazzId();
+        System.out.println(clazzid);
+
         Map<String,Object> paramMap = new HashMap();
+        System.out.println(clazzid);
         paramMap.put("pageno",page);
         paramMap.put("pagesize",rows);
         if(!StringUtils.isEmpty(studentName))  paramMap.put("username",studentName);
-        if(!clazzid.equals("0"))  paramMap.put("clazzid",clazzid);
-
+        if(clazzid != 0)  paramMap.put("clazzid",clazzid);
         //判断是老师还是学生权限
         Student student = (Student) session.getAttribute(Const.STUDENT);
         if(!StringUtils.isEmpty(student)){
@@ -75,6 +80,8 @@ public class StudentController {
              * 查全表
              */
             paramMap.clear();
+            if(clazzid != 0)  paramMap.put("clazzid",clazzid);
+
             paramMap.put("pageno",1);
             paramMap.put("pagesize",1000000000);
             pageBean = studentService.queryPage(paramMap);

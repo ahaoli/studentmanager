@@ -7,7 +7,7 @@
         <result column="sn" property="sn"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
-        <result column="clazz_id" property="clazzId"/>
+        <result column="clazzId" property="clazzId"/>
         <result column="sex" property="sex"/>
         <result column="mobile" property="mobile"/>
         <result column="qq" property="qq"/>
@@ -15,15 +15,16 @@
     </resultMap>
 
     <select id="queryList" resultMap="StudentInfo" >
-        <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
         from s_student
         <where>
             <if test="username!=null"> and username LIKE concat("%",#{username},"%") </if>
-            <if test="clazzid!=null"> and clazz_id LIKE concat("%",#{clazzid},"%") </if>
+            <if test="clazzid!=null"> and clazz_id = #{clazzid} </if>
             <if test="studentid!=null"> and id = #{studentid} </if>
         </where>
         limit #{startIndex},#{pagesize}
+        <!--<if test="clazzid!=null"> and clazz_id LIKE concat("%",#{clazzid},"%") </if>-->
+
     </select>
 
     <select id="queryCount" resultType="int" >

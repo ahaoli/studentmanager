@@ -7,7 +7,7 @@
         <result column="sn" property="sn"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
-        <result column="clazz_id" property="clazzId"/>
+        <result column="clazzId" property="clazzId"/>
         <result column="sex" property="sex"/>
         <result column="mobile" property="mobile"/>
         <result column="qq" property="qq"/>
@@ -82,7 +82,7 @@
     </select>
 
 
-    <select id="findByTeacher" parameterType="Teacher" resultType="Teacher">
+    <select id="findByTeacher" parameterType="String" resultType="Teacher">
         select * from s_teacher where username = #{username} and password = #{password}
     </select>
 
