@@ -147,7 +147,8 @@ public class StudentController {
         // 存放上传图片的文件夹
         File fileDir = UploadUtil.getImgDirFile();
         for(MultipartFile fileImg : files){
-
+            if(fileImg.getOriginalFilename().isEmpty())
+                break;
             // 拿到文件名
             String extName = fileImg.getOriginalFilename().substring(fileImg.getOriginalFilename().lastIndexOf("."));
             String uuidName = UUID.randomUUID().toString();

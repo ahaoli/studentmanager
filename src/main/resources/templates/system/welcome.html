@@ -10,7 +10,7 @@
 <body>
 
 <div th:fragment="welcome">
-	<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; ">
+	<div title="欢迎使用" style="padding:20px;overflow:hidden; color:black; ">
 		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.usertype == '1'}" th:text="${session.admin.username}"></p>
 		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.usertype == '2'}" th:text="${session.student.username}"></p>
 		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.usertype == '3'}" th:text="${session.teacher.username}"></p>
@@ -23,7 +23,7 @@
 		<p>开发工具：IDEA</p>
 		<p>Java版本：JDK 1.8</p>
 		<p>服务器：tomcat 8.0</p>
-		<p>数据库：MySQL 8.0</p>
+		<p>数据库：MySQL 8.0.13</p>
 		<p>系统采用技术： springboot + mybatis + maven</p>
 	</div>
 </div>

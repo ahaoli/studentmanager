@@ -66,7 +66,7 @@ public class SystemController {
             ajaxResult.setMessage("请填写密码");
             return ajaxResult;
         }
-        if(StringUtils.isEmpty(code)){
+        /*if(StringUtils.isEmpty(code)){
             ajaxResult.setSuccess(false);
             ajaxResult.setMessage("请填验证码");
             return ajaxResult;
@@ -81,7 +81,7 @@ public class SystemController {
                 ajaxResult.setMessage("验证码错误");
                 return ajaxResult;
             }
-        }
+        }*/
         //数据库校验
         switch (type){
             case "1":{ //管理员
