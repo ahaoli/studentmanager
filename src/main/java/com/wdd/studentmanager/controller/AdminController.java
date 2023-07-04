@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Classname UserController
  * @Description None
  * @Date 2019/6/25 17:51
- * @Created by WDD
+ * @Created by W
  */
 @Controller
 @RequestMapping("/admin")
